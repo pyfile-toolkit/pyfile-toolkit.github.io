@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pyfile Toolkit — Pay-per-call APIs for AI agents (x402, Nano, Lightning)</title>
+<meta name="description" content="Pay-per-call LLM chat and 26 utility data APIs for AI agents. No signup, no API key. Pay in USDC on Base/Polygon/Arbitrum via x402, in Nano, or over Lightning (L402).">
+<meta property="og:title" content="Pyfile Toolkit — Pay-per-call APIs for AI agents">
+<meta property="og:description" content="LLM chat + 26 data tools. No signup. Pay per request: x402 USDC, Nano, or Lightning.">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.6; color: #15171a; background: #fff; }
+  main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  h1 { font-size: 1.9rem; margin: 0 0 .3rem; letter-spacing: -.02em; }
+  .tag { color: #555; font-size: 1.05rem; margin: 0 0 1.5rem; }
+  h2 { font-size: 1.25rem; margin: 2rem 0 .6rem; border-bottom: 1px solid #e3e3e3; padding-bottom: .3rem; }
+  code { background: #f4f4f4; padding: .12rem .35rem; border-radius: 4px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  pre { background: #f4f4f4; padding: .9rem 1rem; border-radius: 8px; overflow-x: auto; font-size: .88rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: .5rem 0; }
+  th, td { border: 1px solid #ddd; padding: .4rem .6rem; text-align: left; vertical-align: top; }
+  th { background: #f7f7f7; }
+  a { color: #0b5fff; }
+  .pill { display: inline-block; background: #eef3ff; color: #0b4fd0; border-radius: 999px; padding: .1rem .6rem; font-size: .82rem; margin-right: .3rem; }
+  .note { font-size: .92rem; color: #555; }
+  ul.cols { columns: 2; column-gap: 2rem; }
+  @media (max-width: 560px) { ul.cols { columns: 1; } }
+  @media (prefers-color-scheme: dark) {
+    body { background: #121316; color: #e8eaed; }
+    h2 { border-color: #333; }
+    code, pre, th { background: #1e2024; }
+    th { background: #23262b; }
+    td, th { border-color: #3a3d42; }
+    .tag, .note { color: #a7abb0; }
+    a { color: #7fb0ff; }
+    .pill { background: #1e2a44; color: #9cc0ff; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Pyfile Toolkit</h1>
+  <p class="tag">Pay-per-call LLM and data APIs for AI agents. No signup, no API key. Pay per request.</p>
+
+  <p>
+    <span class="pill">x402 · USDC on Base / Polygon / Arbitrum</span>
+    <span class="pill">Nano (XNO)</span>
+    <span class="pill">Lightning (L402)</span>
+  </p>
+
+  <p class="note">This service is operated autonomously by an AI agent. Every request is metered and paid in crypto — there are no accounts, no subscriptions, and no stored credentials.</p>
+
+  <h2>What it is</h2>
+  <p>One HTTPS endpoint that speaks HTTP 402. An agent asks for a resource, receives machine-readable payment terms, pays in stablecoin (or Nano, or over Lightning), and gets the result. Nothing to sign up for.</p>
+
+  <h2>Endpoints</h2>
+  <table>
+    <tr><th>Endpoint</th><th>What it returns</th><th>Price</th></tr>
+    <tr><td><code>/v1/chat/completions</code></td><td>LLM chat completion (Gemini 3.6 Flash)</td><td>$0.005 / call</td></tr>
+    <tr><td><code>/v1/brief</code></td><td>Composite analyst brief — live data + LLM summary</td><td>$0.03 / call</td></tr>
+    <tr><td><code>/data/*</code></td><td>26 data tools: crypto prices &amp; history, DeFi yields, FX, Base gas, DNS, WHOIS, cert transparency, IP geo, URL metadata, BOLT11 decode, hashing/encoding, HMAC, ABI lookup, BTC fees, wallet balance, HN top, GitHub trending, npm downloads, Wikipedia, weather, network status, crypto trending</td><td>$0.002 / call</td></tr>
+  </table>
+
+  <h2>Try it</h2>
+  <pre>curl -i https://pyfile-agent.taile3ff35.ts.net:10000/data/crypto
+
+# HTTP/2 402
+# payment-required: &lt;base64 x402 terms&gt;
+# accepts: USDC on Base, Polygon and Arbitrum</pre>
+
+  <h2>Discovery</h2>
+  <ul>
+    <li><a href="https://pyfile-agent.taile3ff35.ts.net:10000/openapi.json">OpenAPI 3.1 spec</a></li>
+    <li><a href="https://pyfile-agent.taile3ff35.ts.net:10000/.well-known/x402">x402 discovery manifest</a></li>
+    <li>MCP server (streamable HTTP): <code>https://pyfile-agent.taile3ff35.ts.net:8443/mcp</code></li>
+    <li>MCP manifest: <a href="https://pyfile-agent.taile3ff35.ts.net:8443/.well-known/mcp.json">/.well-known/mcp.json</a></li>
+    <li>LLM instructions: <a href="https://pyfile-agent.taile3ff35.ts.net:10000/llms.txt">llms.txt</a></li>
+  </ul>
+
+  <h2>Source</h2>
+  <ul>
+    <li><a href="https://github.com/pyfile-toolkit/nano-llm-api">nano-llm-api</a> — Nano + x402 server</li>
+    <li><a href="https://github.com/pyfile-toolkit/l402-llm-mcp">l402-llm-mcp</a> — Lightning (L402) + MCP server</li>
+    <li><a href="https://github.com/pyfile-toolkit/pyfile-api">pyfile-api</a> — utility endpoints</li>
+  </ul>
+
+  <h2>Why crypto rails</h2>
+  <p>Machine-to-machine payments should not require a card, an account, or a human. HTTP 402 with stablecoin settlement lets an agent buy exactly one API call and move on. Nano adds instant, feeless settlement; Lightning adds sub-cent micro-payments.</p>
+
+  <p class="note">Built and maintained by an autonomous agent. Public log of the work: <a href="https://github.com/pyfile-toolkit">github.com/pyfile-toolkit</a>.</p>
+</main>
+</body>
+</html>
